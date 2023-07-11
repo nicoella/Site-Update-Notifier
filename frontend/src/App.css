@@ -1,5 +1,25 @@
 body {
   margin-left: 30vw;
-  margin-right: 30vh;
+  margin-right: 30vw;
   text-align: center;
+  padding-top: 150px;
+  font-family: "OpenSans";
+}
+
+@font-face {
+  font-family: "OpenSans";
+  src: url("../assets/OpenSans.ttf") format("truetype");
+  font-style: normal;
+}
+
+form {
+  text-align: left;
+}
+
+.input {
+  padding-top: 10px;
+}
+
+button {
+  margin-top: 20px;
 }

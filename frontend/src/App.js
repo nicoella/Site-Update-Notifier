@@ -10,11 +10,15 @@ function App() {
         to be posted to.
       </p>
       <form>
-        <label for="input1">Site to Track:</label>
-        <input type="text" id="input1" name="input1"></input>
+        <div class="input">
+          <label for="input1">Site to Track: </label>
+          <input type="text" id="input1" name="input1"></input>
+        </div>
 
-        <label for="input2">Webhook Link:</label>
-        <input type="text" id="input2" name="input2"></input>
+        <div class="input">
+          <label for="input2">Webhook Link: </label>
+          <input type="text" id="input2" name="input2"></input>
+        </div>
 
         <button type="submit">Submit</button>
       </form>
