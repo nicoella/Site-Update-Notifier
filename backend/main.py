@@ -19,19 +19,26 @@ db = mongo_client["Cluster0"] # Update with your Cluster name
 
 collection = db["data"] # Update with your Collection name
 
+@app.route("/api/")
+def welcome():
+    return "api"
+
 @app.route("/api/data", methods=["POST"])
-def insert_data(site, webhook):
+def insert_data():
+    site = request.form.get("site")
+    webhook = request.form.get("webhook")
     hash_value = get_site_hash(site)
     collection.insert({"site":site, "hash":hash_value, "webhook":webhook})
     send_notification(webhook, "Webhook Added", "Your webhook has been added for the site "+site+". Update notifications will be sent here.")
+    return "test"
 
-@app.route("/ping")
+@app.route("/api/ping")
 def ping_mongodb():
     try:
         mongo_client.admin.command('ping')
-        print("Pinged your deployment. You successfully connected to MongoDB!")
+        return "Pinged your deployment. You successfully connected to MongoDB!"
     except Exception as e:
-        print(e)
+        return e
 
 def get_site_hash(url):
     response = requests.get(url)
@@ -63,3 +70,7 @@ def send_notification(webhook_url, title, description):
         print(err)
     else:
         print("Payload delivered successfully, code {}.".format(result.status_code))
+    
+# run backend    
+if __name__ == "__main__":
+    app.run(host="localhost", port=5000)
