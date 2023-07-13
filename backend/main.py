@@ -10,6 +10,8 @@ from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
 
 from pymongo.mongo_client import MongoClient
+from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 from config import config # Place your Mongo URI in a config.py file
 
@@ -22,23 +24,28 @@ db = mongo_client["Cluster0"] # Update with your Cluster name
 
 collection = db["data"] # Update with your Collection name
 
+# base for api
 @app.route("/api/")
 def welcome():
     return "api is running"
 
+# update database POST request
 @app.route("/api/data", methods=["POST"])
 def insert_data():
     print(request.json)
     site = request.json.get("site")
     webhook = request.json.get("webhook")
     hash_value = get_site_hash(site)
-    if not collection.insert_one({"site":site, "hash":hash_value, "webhook":webhook}).acknowledged:
+    hash_id = hash_str(site+" "+webhook)
+    insert_result = collection.insert_one({"_id": hash_id, "site":site, "hash":hash_value, "webhook":webhook}).acknowledged
+    if not insert_result:
         return {"status": "bad insert"}
     if not send_notification(webhook, "Webhook Added", "Your webhook has been added for the site "+site+". Update notifications will be sent here."):
-        print("error")
+        collection.delete_one({"_id": hash_id})        
         return {"status": "bad webhook"}
     return {"status": "success"}
 
+# check database status
 @app.route("/api/ping")
 def ping_mongodb():
     try:
@@ -47,22 +54,29 @@ def ping_mongodb():
     except Exception as e:
         return e
 
+# hash a given string
+def hash_str(str):
+    hash_object = hashlib.sha256(str.encode())
+    hash_value = hash_object.hexdigest()
+    return hash_value
+
+# hash all content within url page
 def get_site_hash(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
     parsed_html_string = str(soup)
-    hash_object = hashlib.sha256(parsed_html_string.encode())
-    hash_value = hash_object.hexdigest()
-    return hash_value
+    return hash_str(parsed_html_string)
 
-
+# send a notification to webhook
 def send_notification(webhook, title, description):
     data = {
         "username" : "Site Update Notifier Webhook",
-        "embeds": {
-            "description" : description,
-            "title" : title
-        }
+        "embeds" : [
+            {
+                "description" : description,
+                "title" : title
+            }
+        ]
     }
     try:
         result = requests.post(webhook, json = data)
@@ -72,13 +86,15 @@ def send_notification(webhook, title, description):
     except Exception as err:
         print(err)
         return False
-        
+    
+# check if site was updated    
 def check_update(url, hash, webhook):
     cur_hash = get_site_hash(url)
     if cur_hash != hash:
         print("site updated!!!!")
         send_notification(webhook, "Site Updated", "Your saved site " + url + " has had updates.")
         
+# get all data from backend
 async def get_all_data():
     data = collection.find()
     for site in data:
