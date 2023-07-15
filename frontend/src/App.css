@@ -1,0 +1,39 @@
+body {
+  margin-left: 30vw;
+  margin-right: 30vw;
+  text-align: center;
+  padding-top: 150px;
+  font-family: "OpenSans";
+}
+
+@font-face {
+  font-family: "OpenSans";
+  src: url("../assets/OpenSans.ttf") format("truetype");
+  font-style: normal;
+}
+
+form {
+  text-align: left;
+}
+
+.input {
+  padding-top: 10px;
+}
+
+button {
+  margin-top: 20px;
+}
+
+.error {
+  text-align: left;
+  font-size: 13px;
+  color: #a81818;
+  padding-top: 10px;
+}
+
+.valid {
+  text-align: left;
+  font-size: 13px;
+  color: #25a83b;
+  padding-top: 10px;
+}
