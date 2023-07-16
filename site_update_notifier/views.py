@@ -8,6 +8,8 @@ from django.http import HttpResponse, JsonResponse
 
 from site_update_notifier.utils import get_site_hash, hash_str, send_notification
 
+import json
+
 mongo_client = MongoClient(config["MONGO_URI"])
 
 db = mongo_client["Cluster0"] # Update with your Cluster name
@@ -21,7 +23,7 @@ def welcome(request):
 # update database POST request
 def insert_data(request):
     if request.method == "POST":
-        data = request.POST
+        data = json.loads(request.body)
         site = data.get("site")
         webhook = data.get("webhook")
         hash_value = get_site_hash(site)

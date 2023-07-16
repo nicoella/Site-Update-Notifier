@@ -33,30 +33,9 @@ def send_notification(webhook, title, description):
     try:
         result = requests.post(webhook, json = data)
         result.raise_for_status()
-        print("Payload delivered successfully, code {}.".format(result.status_code))
+        # print("Payload delivered successfully, code {}.".format(result.status_code))
         return True
     except Exception as err:
         print(err)
         return False
     
-# check if site was updated    
-#def check_update(url, hash, webhook):
-#    cur_hash = get_site_hash(url)
-#    if cur_hash != hash:
-#        print("site updated!!!!")
-#        send_notification(webhook, "Site Updated", "Your saved site " + url + " has had updates.")
-        
-# get all data from backend
-# async def get_all_data():
-#    data = collection.find()
-#    for site in data:
- #       print(site['url']+" "+site['hash']+" "+site['webhook'])
- #       check_update(site['url'], site['hash'], site['webhook'])
-    
-# check updates
-#async def run_task():
-#    await aiocron.crontab("*/3 * * * *", func=get_all_data)
-
-#loop = asyncio.get_event_loop()
-
-#loop.run_until_complete(run_task())

@@ -3,6 +3,9 @@
 import os
 import sys
 
+import threading
+
+from site_update_notifier.tasks import run_updates
 
 def main():
     """Run administrative tasks."""
@@ -19,4 +22,6 @@ def main():
 
 
 if __name__ == '__main__':
+    updates_thread = threading.Thread(target=run_updates)
+    updates_thread.start()
     main()
