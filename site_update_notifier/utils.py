@@ -1,10 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
 import hashlib
-import json # tbd
-
-import asyncio
-import aiocron
 
 # hash a given string
 def hash_str(str):
@@ -33,7 +29,6 @@ def send_notification(webhook, title, description):
     try:
         result = requests.post(webhook, json = data)
         result.raise_for_status()
-        # print("Payload delivered successfully, code {}.".format(result.status_code))
         return True
     except Exception as err:
         print(err)
