@@ -26,16 +26,28 @@ collection = db["[your_collection_name]"] # Update with your Collection name
 
 ### Running the bot
 
-Run setup script (first time):
+Run setup script (only the first time):
 
 ```
 $ chmod +x setup.sh
 $ ./setup.sh
 ```
 
-Run run script:
+Start the virtual environment:
 
 ```
-$ chmod +x run.sh
-$ ./run.sh
+$ source venv/bin/activate
+```
+
+Run backend:
+
+```
+$ python manage.py runserver
+```
+
+Run the frontend:
+
+```
+$ cd frontend
+$ npm run start
 ```
