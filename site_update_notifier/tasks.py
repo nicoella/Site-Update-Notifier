@@ -12,7 +12,7 @@ mongo_client = MongoClient(config["MONGO_URI"])
 
 db = mongo_client[config["MONGO_CLUSTER"]]
 
-collecton = db[config["MONGO_COLLECTION"]]
+collection = db[config["MONGO_COLLECTION"]]
 
 
 # check if site was updated
