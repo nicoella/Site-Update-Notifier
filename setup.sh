@@ -9,6 +9,7 @@ source venv/bin/activate
 # Install dependencies
 pip install beautifulsoup4 requests
 python -m pip install pymongo==3.11
+pip install dnspython
 
 # Install node modules
 cd frontend
