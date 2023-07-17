@@ -42,7 +42,7 @@ $ source venv/bin/activate
 Run backend:
 
 ```
-$ python manage.py runserver
+$ python manage.py runserver --noreload
 ```
 
 Run the frontend:

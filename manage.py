@@ -2,12 +2,12 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
-from site_update_notifier.tasks import run_updates
+import threading
+from site_update_notifier.tasks import run_updates_thread
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'site_update_notifier.settings')
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "site_update_notifier.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -19,6 +19,8 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-if __name__ == '__main__':
-    run_updates()
+if __name__ == "__main__":
+    updates_thread = threading.Thread(target=run_updates_thread)
+    updates_thread.start()
     main()
+

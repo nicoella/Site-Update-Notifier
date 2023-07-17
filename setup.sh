@@ -10,6 +10,7 @@ source venv/bin/activate
 pip install beautifulsoup4 requests
 python -m pip install pymongo==3.11
 pip install dnspython
+pip install django
 
 # Install node modules
 cd frontend
