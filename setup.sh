@@ -15,3 +15,13 @@ pip install django
 # Install node modules
 cd frontend
 npm install
+cd ..
+
+# Create config.py file
+cd site_update_notifier
+touch config.py
+echo 'config = {
+    "MONGO_URI":"[your_mongo_URI]",
+    "MONGO_CLUSTER":"[your_mongo_cluster_name]", 
+    "MONGO_COLLECTION":"[your_mongo_collection_name]",
+}' > config.py

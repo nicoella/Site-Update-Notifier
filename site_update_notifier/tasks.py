@@ -10,9 +10,9 @@ from site_update_notifier.utils import get_site_hash, send_notification
 
 mongo_client = MongoClient(config["MONGO_URI"])
 
-db = mongo_client["Cluster0"]  # Update with your Cluster name
+db = mongo_client[config["MONGO_CLUSTER"]]
 
-collection = db["data"]  # Update with your Collection name
+collecton = db[config["MONGO_COLLECTION"]]
 
 
 # check if site was updated
