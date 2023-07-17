@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-e76r7$qn3%buaksu)5ix5=-0rwi1f4%^mp6%0z(qi*c00af6(&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -124,7 +124,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CSRF configuration
 CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']
-
-# Celery configuration
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'

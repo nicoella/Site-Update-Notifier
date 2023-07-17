@@ -1,5 +1,4 @@
 import time
-from celery import shared_task
 
 from pymongo.mongo_client import MongoClient
 from pymongo import MongoClient
