@@ -1,5 +1,7 @@
 # Site-Update-Notifier
 
+A bot that stores sites to track in a database, routinely scans the tracked sites for updates, and pushes a notification to the webhook if an update exists.
+
 ## Usage
 
 Make sure Python 3 is installed.
