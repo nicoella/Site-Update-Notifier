@@ -14,12 +14,16 @@ collection = db["data"] # Update with your Collection name
 
 # check if site was updated    
 def check_update(_id, url, hash, webhook):
-    cur_hash = get_site_hash(url)
-    if cur_hash != hash:
-        send_notification(webhook, "Site Updated", "Your saved site " + url + " has had updates.")
-        new_data = { "url": url, "hash": cur_hash, "webhook": webhook }
-        update_result = collection.update_one({"_id": _id}, {"$set": new_data}).acknowledged
-        print(update_result)
+    try:
+        cur_hash = get_site_hash(url)
+        if cur_hash != hash:
+            send_notification(webhook, "Site Updated", "Your saved site " + url + " has had updates.")
+            new_data = { "url": url, "hash": cur_hash, "webhook": webhook }
+            update_result = collection.update_one({"_id": _id}, {"$set": new_data}).acknowledged
+            print(update_result)
+    except KeyboardInterrupt:
+        print("Keyboard interrupt detected. Exiting...")
+
 
         
 # get all data from backend
