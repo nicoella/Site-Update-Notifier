@@ -4,7 +4,7 @@ A bot that stores sites to track in a database, routinely scans the tracked site
 
 ## Usage
 
-Make sure Python 3 is installed.
+Make sure Python 2.7 is installed.
 
 ### MongoDB Setup
 
