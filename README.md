@@ -12,7 +12,7 @@ Create a MongoDB Atlas database. Note down your Mongo URI, Cluster name, and Col
 
 ### Running the bot
 
-Run setup script (only the first time):
+Run setup script:
 
 ```
 $ chmod +x setup.sh
